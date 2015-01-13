@@ -1,3 +1,8 @@
+/**
+ * given a @length
+ * and random an array without duplicated element
+ *
+ */
 function randomArrFixLength(length) {
   var result = [],
       count = length;
