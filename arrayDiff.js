@@ -1,4 +1,10 @@
 /**
+ * This script offers two function to randomize array
+ * and show how much time it takes
+ *
+ */
+
+/**
  * given a @length
  * and random an array without duplicated element
  *
