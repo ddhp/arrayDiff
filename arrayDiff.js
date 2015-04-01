@@ -116,9 +116,9 @@ console.log('Time took: ', timeTook);
 var sortFunc = function (a, b) {
   return a -b;
 };
-var startTime = new Date().getTime();
 var sX = x.sort(sortFunc);
 var sY = y.sort(sortFunc);
+var startTime = new Date().getTime();
 var differentArr = [];
 for (var i = 0, l = sX.length; i < l; i ++) {
   var v = sX[i];
@@ -152,3 +152,56 @@ function arraysEqual(a, b) {
 }
 
 console.log('is the same? ', arraysEqual(diffArr, differentArr));
+
+
+var count = 0;
+
+/**
+ * Iterate through a to compare with each b
+ *
+ */
+function compareArray(a, b) {
+  var diffs = []
+  Array.prototype.some.call(a, function(numA, idxA) {
+    Array.prototype.some.call(b, function(numB, idxB) {
+      // console.log('comparing ' + numA + ' with ' + numB);
+      // console.log('compare count:', ++count);
+      // break if 2 element are equal
+      if (numA === numB) {
+        return true
+      }
+      // find a diff if numB is bigger than numA
+      if (numB > numA) { 
+        diffs.push(numA);
+        return true
+      }
+    });
+    // break if numA is bigger than last element of bArr
+    // slice rest of elements into diffs
+    if (numA > b[b.length -1]) {
+      console.log('all diffs after this idx:', idxA);
+      var rests = Array.prototype.slice.call(a, idxA);
+      // console.log('rests:', rests);
+      diffs = diffs.concat(rests);
+      return true;
+    }
+  });
+  return diffs;
+}
+
+var startTime = new Date().getTime();
+// aArr.sort(sortFunc);
+// bArr.sort(sortFunc);
+// console.log(sX);
+// console.log(sY);
+
+
+var firstDiffs = compareArray(sX, sY);
+var secondDiffs = compareArray(sY, sX)
+// console.dir(firstDiffs);
+// console.dir(secondDiffs);
+
+var diffs = firstDiffs.concat(secondDiffs);
+var timeTook = new Date().getTime() - startTime;
+console.log(timeTook);
+console.log(arraysEqual(diffs, differentArr));
